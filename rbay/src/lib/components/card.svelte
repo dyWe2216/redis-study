@@ -12,12 +12,23 @@
 		views?: number;
 	}
 
-	export let item: any;
+	export let item: ItemSummary;
 
-	$: endingAt =
-		typeof item.endingAt === 'number'
-			? DateTime.fromMillis(item.endingAt).toRelative()
-			: item.endingAt.toRelative();
+	const calcEndingAt = (item: ItemSummary) => {
+		switch (typeof item.endingAt) {
+			case 'number':
+				return DateTime.fromMillis(item.endingAt).toRelative();
+			case 'string':
+				return DateTime.fromISO(item.endingAt).toRelative();
+			case 'object':
+				return (item.endingAt as DateTime).toRelative()
+			default:
+				return '?';
+		}
+	}
+
+$: endingAt = calcEndingAt(item);
+
 </script>
 
 <div class="w-80 flex justify-center items-center">
