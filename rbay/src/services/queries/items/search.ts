@@ -15,6 +15,7 @@ export const searchItems = async (term: string, size: number = 5) => {
 		return [];
 	}
 
+	// 아이템 이름에 검색어 존재 시 5배의 가중치를 적용
 	const query = `(@name:(${cleaned}) => { $weight: 5.0 }) | (@description:(${cleaned}))`;
 
 	// Use the client to do an actual search

@@ -4,7 +4,7 @@ import { client } from './client';
 
 export const createIndexes = async () => {
 	const indexes = await client.ft._list();
-	console.log(indexes);
+
 	const exists = indexes.find((index) => index === itemsIndexKey());
 
 	if (exists) {
